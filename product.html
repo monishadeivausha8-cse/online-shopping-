@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Product Page</title>
+<link rel="stylesheet" href="shopping 2.css">
+<style>
+
+body{
+    font-family: Arial;
+    background-color: peachpuff;
+    padding: 20px;
+}
+
+.products{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card{
+    background-color: white;
+    padding: 20px;
+    width: 220px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+button{
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#cart{
+    margin-top: 40px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cart-item{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.total{
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 align="center">Products</h1>
+
+<div class="products">
+
+    <div class="card">
+        <img src = "home decor 1.jpg" alt = "flower vase" width="200">
+        <h2>Flower Vase</h2>
+        <p>₹500</p>
+
+        <button onclick="addToCart('Flower Vase',500)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="card">
+        <img src = "home decor 2.jpg" alt = "artificial plant" width="200">
+        <h2>Artificial Plant</h2>
+        <p>₹750</p>
+
+        <button onclick="addToCart('Artificial Plant',750)">
+            Add to Cart
+        </button>
+    </div>
+
+    <div class="card">
+        <img src = "home decor 3.jpg" alt = "wall hanging" width="200">
+        <h2>Wall Hanging</h2>
+        <p>₹999</p>
+
+        <button onclick="addToCart('Wall Hanging',999)">
+            Add to Cart
+        </button>
+    </div>
+
+</div>
+
+<div id="cart">
+
+    <h2>Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="total">
+        Total: ₹<span id="total">0</span>
+    </div>
+
+</div>
+
+<script>
+
+let total = 0;
+
+function addToCart(name, price){
+
+    let cartItems =
+        document.getElementById("cart-items");
+
+    let item =
+        document.createElement("div");
+
+    item.classList.add("cart-item");
+
+    item.innerHTML =
+        `<span>${name}</span>
+         <span>${price}</span>`;
+
+    cartItems.appendChild(item);
+
+    total = total + price;
+
+    document.getElementById("total").innerText = total;
+}
+
+</script>
+
+</body>
+</html>
