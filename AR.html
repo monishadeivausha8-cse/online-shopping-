@@ -68,7 +68,6 @@ body{
     margin-top:10px;
 }
 
-/* AR PAGE */
 
 #arPage{
 
@@ -82,7 +81,6 @@ body{
     background:black;
 }
 
-/* CAMERA */
 
 #camera{
 
@@ -101,7 +99,6 @@ body{
     background:black;
 }
 
-/* PRODUCT */
 
 #product{
 
@@ -118,7 +115,6 @@ body{
     z-index:10;
 }
 
-/* TOP BAR */
 
 .topBar{
 
@@ -188,7 +184,6 @@ Blush Bay Furniture
 
 <div class="products">
 
-    <!-- CHAIR -->
 
     <div class="card">
 
@@ -276,22 +271,16 @@ Blush Bay Furniture
 
 </div>
 
-<!-- AR PAGE -->
-
 <div id="arPage">
 
-<!-- CAMERA -->
 
 <video id="camera"
 autoplay
 playsinline>
 </video>
 
-<!-- PRODUCT -->
-
 <img id="product">
 
-<!-- TITLE -->
 
 <div class="topBar">
 
@@ -299,7 +288,6 @@ Move Product Anywhere In Your Room
 
 </div>
 
-<!-- CONTROLS -->
 
 <div class="controls">
 
@@ -335,7 +323,6 @@ Move Product Anywhere In Your Room
 
 <script>
 
-/* ELEMENTS */
 
 const productPage =
 document.getElementById("productPage");
@@ -350,9 +337,6 @@ const product =
 document.getElementById("product");
 
 let stream;
-
-
-/* OPEN AR */
 
 async function openAR(image){
 
@@ -394,8 +378,6 @@ async function openAR(image){
 
 }
 
-/* CLOSE AR */
-
 function closeAR(){
 
     arPage.style.display = "none";
@@ -411,8 +393,6 @@ function closeAR(){
     }
 }
 
-
-/* CLICK TO PLACE */
 
 document.addEventListener("click",(e)=>{
 
@@ -431,8 +411,6 @@ document.addEventListener("click",(e)=>{
     }
 });
 
-
-/* DRAGGING */
 
 let dragging = false;
 
