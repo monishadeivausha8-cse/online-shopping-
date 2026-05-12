@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Blush Bay AR Furniture</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    overflow:hidden;
+    background:#f5f5f5;
+}
+
+
+.products{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    padding:30px;
+}
+
+.card{
+
+    background:white;
+
+    width:250px;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card img{
+
+    width:100%;
+    height:200px;
+
+    object-fit:contain;
+}
+
+.card button{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#8b0027;
+
+    color:white;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+/* AR PAGE */
+
+#arPage{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+    background:black;
+}
+
+/* CAMERA */
+
+#camera{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100vw;
+    height:100vh;
+
+    object-fit:cover;
+
+    z-index:0;
+
+    background:black;
+}
+
+/* PRODUCT */
+
+#product{
+
+    position:absolute;
+
+    width:250px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    z-index:10;
+}
+
+/* TOP BAR */
+
+.topBar{
+
+    position:absolute;
+
+    top:20px;
+    left:20px;
+
+    background:rgba(0,0,0,0.6);
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    z-index:20;
+}
+
+/* CONTROLS */
+
+.controls{
+
+    position:absolute;
+
+    bottom:20px;
+
+    width:100%;
+
+    text-align:center;
+
+    z-index:20;
+}
+
+.controls button{
+
+    padding:12px 20px;
+
+    margin:5px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.closeBtn{
+
+    background:rgb(255, 0, 60);
+    color:white;
+}
+
+</style>
+
+</head>
+<body>
+<div id="productPage">
+
+<h1 style="text-align:center; padding:20px;">
+
+Blush Bay Furniture
+
+</h1>
+
+<div class="products">
+
+    <!-- CHAIR -->
+
+    <div class="card">
+
+        <img src="images/home decor 1.jpg">
+
+        <h2>Artificial Plant</h2>
+
+        <button onclick="openAR('images/home decor 1.jpg')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+
+    <!-- SOFA -->
+
+    <div class="card">
+
+        <img src="images/home decor 2.jpg">
+
+        <h2>flower vase</h2>
+
+        <button onclick="openAR('images/home decor 2.jpg')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+    <div class="card">
+
+        <img src="images/home decor 3.jpg">
+
+        <h2>Wall Hanging</h2>
+
+        <button onclick="openAR('images/home decor 3.jpg')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+<div class="card">
+
+        <img src="images/full length mirror.jpg">
+
+        <h2>Full Length Mirror</h2>
+
+        <button onclick="openAR('images/full length mirror.jpg')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+<div class="card">
+
+        <img src="images/cozy plant stacker.webp">
+
+        <h2>cozy plant stacker</h2>
+
+        <button onclick="openAR('images/cozy plant stacker.webp')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+    <div class="card">
+
+        <img src="images/cage with artificial flowersw.jpg">
+
+        <h2>cage with artificial flower</h2>
+
+        <button onclick="openAR('images/cage with artificial flowersw.jpg')">
+
+            Try In My Room
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- AR PAGE -->
+
+<div id="arPage">
+
+<!-- CAMERA -->
+
+<video id="camera"
+autoplay
+playsinline>
+</video>
+
+<!-- PRODUCT -->
+
+<img id="product">
+
+<!-- TITLE -->
+
+<div class="topBar">
+
+Move Product Anywhere In Your Room
+
+</div>
+
+<!-- CONTROLS -->
+
+<div class="controls">
+
+    <button onclick="zoomIn()">
+
+        Zoom In
+
+    </button>
+
+    <button onclick="zoomOut()">
+
+        Zoom Out
+
+    </button>
+
+    <button onclick="rotateProduct()">
+
+        Rotate
+
+    </button>
+
+    <button
+    class="closeBtn"
+    onclick="closeAR()">
+
+        Close
+
+    </button>
+
+</div>
+
+</div>
+
+<script>
+
+/* ELEMENTS */
+
+const productPage =
+document.getElementById("productPage");
+
+const arPage =
+document.getElementById("arPage");
+
+const video =
+document.getElementById("camera");
+
+const product =
+document.getElementById("product");
+
+let stream;
+
+
+/* OPEN AR */
+
+async function openAR(image){
+
+    productPage.style.display = "none";
+
+    arPage.style.display = "block";
+
+    product.src = image;
+
+    try{
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+
+            video:{
+                facingMode:"user"
+            },
+
+            audio:false
+
+        });
+
+        video.srcObject = stream;
+
+        video.onloadedmetadata = () => {
+
+            video.play();
+
+        };
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(error.message);
+
+    }
+
+}
+
+/* CLOSE AR */
+
+function closeAR(){
+
+    arPage.style.display = "none";
+
+    productPage.style.display = "block";
+
+    if(stream){
+
+        stream.getTracks().forEach(track=>{
+
+            track.stop();
+        });
+    }
+}
+
+
+/* CLICK TO PLACE */
+
+document.addEventListener("click",(e)=>{
+
+    if(arPage.style.display === "block"){
+
+        if(
+            e.target.tagName !== "BUTTON"
+        ){
+
+            product.style.left =
+            e.clientX + "px";
+
+            product.style.top =
+            e.clientY + "px";
+        }
+    }
+});
+
+
+/* DRAGGING */
+
+let dragging = false;
+
+product.addEventListener("mousedown",()=>{
+
+    dragging = true;
+});
+
+document.addEventListener("mouseup",()=>{
+
+    dragging = false;
+});
+
+document.addEventListener("mousemove",(e)=>{
+
+    if(dragging){
+
+        product.style.left =
+        e.clientX + "px";
+
+        product.style.top =
+        e.clientY + "px";
+    }
+});
+</script>
+
+</body>
+
+</html>
