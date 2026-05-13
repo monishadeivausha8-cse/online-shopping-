@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Product Page</title>
+<style>
+
+body{
+    font-family: Arial;
+    background-color: peachpuff;
+    padding: 20px;
+}
+
+.products{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card{
+    background-color: white;
+    padding: 20px;
+    width: 250px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+button{
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#cart{
+    margin-top: 40px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cart-item{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.total{
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+.card{
+    width:250px;
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:10px;
+}
+.card{
+    width:250px;
+    background:#f2f2f2;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.card h2{
+    min-height:70px;
+}
+
+.price{
+    margin-bottom:15px;
+}
+
+.cart-btn{
+    margin-top:auto;
+}
+
+
+</style>
+
+</head>
+
+<body>
+<h1 align="center">Products</h1>
+<div class="nav-buttons">
+        <a href="AR.html" class="TRY iN YOUR ROOM-btn"><button>Try In My Room</button></a>
+<div class="products">
+
+    <div class="card">
+        <img src = "images/home decor 1.jpg" alt="Flower vase">
+        <h2>Flower Vase</h2>
+        <p>₹500</p>
+            <button class="cart-btn" onclick = "addToCart('Flower Vase',500)">Add to Cart</button>
+        </button>
+    </div>
+
+    <div class="card">
+        <img src = "images/home decor 2.jpg" alt="Artificial Plant" >
+        <h2>Artificial Plant</h2>
+        <p>₹750</p>
+            <button class="cart-btn" onclick = "addToCart('Artificial Plant',750)">Add to Cart</button>
+        </button>
+    </div>
+
+    <div class="card">
+        <img src = "images/home decor 3.jpg" alt="Wall Hanging"  >
+        <h2>Wall Hanging</h2>
+        <p>₹999</p>
+            <button class="cart-btn" onclick = "addToCart('wall Hanging',999)" >Add to Cart</button>
+        </button>
+    </div>
+    <div class = "card">
+        <img src = "images/cage with artificial flowersw.jpg" alt="Cage with artificial Flower"  >
+        <h2>Asthetic cage</h2>
+        <p>₹599</p>
+            <button class="cart-btn" onclick = "addToCart('Asthetic cage',599)" >Add to Cart</button>
+        </button>
+    </div>
+    <div class = "card">
+        <img src="images/cozy plant stacker.webp"  alt="Cozy Plant Stacker">
+        <h2>Cozy Plant Stacker</h2>
+        <p>₹899</p> 
+            <button class="cart-btn" onclick="addToCart('Plant Stacker',899)"  >Add to Cart</button>
+        </button>   
+    </div>
+    <div class = "card">
+        <img src="images/full length mirror.jpg" alt="full length mirror" >
+        <h2>Full Length Mirror</h2>
+        <p>₹1999</p>
+            <button class="cart-btn"onclick="addToCart('Full Length Mirror',₹1999)">Add to Cart</button>
+        </button>
+    </div>
+</div>
+
+<div id="cart">
+
+    <h2>Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="total">
+        Total: ₹<span id="total">0</span>
+    </div>
+    <div>
+        <!-- RAZORPAY BUTTON -->
+
+    <div id="payment-button">
+
+        <center><form><script 
+        src="https://checkout.razorpay.com/v1/payment-button.js"
+        data-payment_button_id="pl_So2d2j0Qgavdaq"
+        async>
+        </script></form></center>
+
+    </div>
+    <div class="nav-buttons">
+        <a href="AR.html" class="TRY iN YOUR ROOM-btn">Try In Your Room</a>
+
+</div>
+<script>
+let total = 0;
+
+function addToCart(name, price){
+
+    let cartItems =
+        document.getElementById("cart-items");
+
+    let item =
+        document.createElement("div");
+
+    item.classList.add("cart-item");
+
+    item.innerHTML =
+        `<span>${name}</span>
+         <span>${price}</span>`;
+
+    cartItems.appendChild(item);
+
+    total = total + price;
+
+    document.getElementById("total").innerText = total;
+    
+}
+
+</script>
+</body>
+</html>
